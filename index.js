@@ -37,22 +37,29 @@ const loadQuiz = () => {
 };
 
 document.querySelector("button").addEventListener("click", () => {
-  const { answer } = quiz[currentQuestion];
-  console.log(
-    ``,
-    document.querySelector("input[name='answer']:checked").id,
-    answer
-  );
-  if (answer === document.querySelector("input[name='answer']:checked").id) {
-    if (currentQuestion < quiz.length - 1) {
-      currentQuestion++;
-      loadQuiz();
-      document.querySelector(`#${answer}`).checked = false;
+  if (currentQuestion < quiz.length) {
+    const { answer } = quiz[currentQuestion];
+    console.log(
+      ``,
+      document.querySelector("input[name='answer']:checked").id,
+      answer
+    );
+    if (answer === document.querySelector("input[name='answer']:checked").id) {
+      if (currentQuestion < quiz.length - 1) {
+        currentQuestion++;
+        loadQuiz();
+        document.querySelector(`#${answer}`).checked = false;
+      } else {
+        currentQuestion++;
+        document.querySelector("h2").textContent = "모든 문제를 풀었습니다!";
+        document.querySelector("ul").innerHTML = "";
+        document.querySelector("button").textContent = "처음으로";
+      }
     } else {
-      alert("모든 퀴즈를 풀었습니다");
+      alert("다시 한 번 생각해보세요");
     }
   } else {
-    alert("다시 한 번 생각해보세요");
+    location.reload();
   }
 });
 
